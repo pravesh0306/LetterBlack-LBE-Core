@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "createdAt": "2026-02-18T21:46:00.000Z",
+  "default": "DENY",
+  "requesters": {
+    "agent:gpt": {
+      "allowAdapters": [
+        "noop",
+        "shell"
+      ],
+      "allowCommands": [
+        "RUN_SHELL"
+      ],
+      "filesystem": {
+        "roots": [
+          "D:\\Developement\\Core_Control\\letterblack-sentinel"
+        ],
+        "denyPatterns": [
+          "**/.git/**",
+          "**/secrets/**",
+          "**/*.key"
+        ]
+      },
+      "exec": {
+        "allowCmds": [
+          "ls",
+          "node",
+          "python",
+          "echo"
+        ],
+        "denyCmds": [
+          "rm",
+          "chmod",
+          "chown",
+          "curl",
+          "wget",
+          "su",
+          "sudo"
+        ]
+      }
+    }
+  }
+}

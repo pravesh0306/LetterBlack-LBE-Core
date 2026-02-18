@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1",
+  "defaultKeyId": "agent:gpt-v1-2026Q1",
+  "trustedKeys": {
+    "agent:gpt-v1-2026Q1": {
+      "requesterId": "agent:gpt",
+      "publicKey": "F1pjBW0TkTcQBQM4U5JX4Ccd1XHvZhHOSoApD0Vkqv0=",
+      "rotationBatch": "2026Q1",
+      "notBefore": "2026-02-18T01:17:09.519Z",
+      "expiresAt": "2027-02-18T01:17:09.519Z",
+      "deprecated": false
+    },
+    "policy-signer-v1-2026Q1": {
+      "publicKey": "F1pjBW0TkTcQBQM4U5JX4Ccd1XHvZhHOSoApD0Vkqv0=",
+      "rotationBatch": "2026Q1",
+      "notBefore": "2026-02-18T05:24:14.057Z",
+      "expiresAt": "2027-02-18T05:24:14.057Z",
+      "deprecated": false
+    }
+  }
+}

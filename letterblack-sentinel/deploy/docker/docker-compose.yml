@@ -1,0 +1,15 @@
+services:
+  sentinel:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    image: letterblack-sentinel:local
+    read_only: true
+    tmpfs:
+      - /tmp
+    entrypoint: ["sh", "-lc"]
+    volumes:
+      - ../../config:/app/config:ro
+      - ../../data:/app/data:rw
+      - ../../keys:/app/keys:ro
+    command: ["while true; do sleep 3600; done"]

@@ -1,0 +1,44 @@
+{
+    "name": "letterblack-sentinel",
+    "version": "0.1.0",
+    "description": "Enterprise AI-safe execution pipeline: Contract-driven governance engine",
+    "type": "module",
+    "main": "src/core/index.js",
+    "bin": {
+        "lbe": "bin/lbe.js"
+    },
+    "scripts": {
+        "test": "node --test test/**/*.test.js",
+        "lint": "eslint src/ bin/",
+        "start": "node bin/lbe.js",
+        "init": "node bin/lbe.js init",
+        "verify": "node bin/lbe.js verify",
+        "dryrun": "node bin/lbe.js dryrun",
+        "run": "node bin/lbe.js run",
+        "policy:sign": "node bin/lbe.js policy-sign",
+        "health": "node bin/lbe.js health --json true",
+        "integrity:generate": "node bin/lbe.js integrity-generate",
+        "integrity:check": "node bin/lbe.js integrity-check",
+        "audit:verify": "node bin/lbe.js audit-verify"
+    },
+    "keywords": [
+        "ai",
+        "safety",
+        "governance",
+        "execution",
+        "contract",
+        "policy"
+    ],
+    "author": "LetterBlack",
+    "license": "MIT",
+    "dependencies": {
+        "tweetnacl": "^1.0.3",
+        "json-canonicalize": "^1.0.4"
+    },
+    "devDependencies": {
+        "eslint": "^8.52.0"
+    },
+    "engines": {
+        "node": ">=20.9.0"
+    }
+}

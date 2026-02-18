@@ -1,0 +1,68 @@
+# LetterBlack Sentinel - Security-First .gitignore
+
+# === CRITICAL SECRETS ===
+# NEVER commit private keys
+keys/secret.key
+keys/*.key
+keys/*.pem
+*.key
+*.pem
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# === RUNTIME DATA ===
+# Nonce store contains sensitive replay protection data
+data/nonce.db.json
+data/*.db.json
+
+# Policy state (runtime)
+data/policy.state.json
+
+# Audit logs may contain sensitive execution history
+data/audit.log.jsonl
+data/*.log
+data/*.jsonl
+
+# Temporary execution artifacts
+data/tmp/
+data/temp/
+
+# === NODE ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+.yarn/
+
+# === TESTING ===
+test-proposal.json
+test-*.json
+*.test.json
+coverage/
+.nyc_output/
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# === BUILD ===
+dist/
+build/
+*.tsbuildinfo
+
+# === LOGS ===
+logs/
+*.log
+
+# === ARCHIVES ===
+LBCP_Plan/*.rar
+LBCP_Plan/*.zip

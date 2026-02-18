@@ -1,0 +1,57 @@
+name: Phase2 Docker Validation
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  docker-phase2:
+    name: Phase2 Docker Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -f deploy/docker/Dockerfile -t letterblack-sentinel:phase2-ci .
+
+      - name: Smoke test (CLI bootstrap)
+        run: |
+          set -euo pipefail
+          OUTPUT_FILE="$(mktemp)"
+          if docker run --rm letterblack-sentinel:phase2-ci --help >"$OUTPUT_FILE" 2>&1; then
+            true
+          else
+            STATUS=$?
+            if [ "$STATUS" -ne 1 ]; then
+              cat "$OUTPUT_FILE"
+              exit "$STATUS"
+            fi
+          fi
+          grep -q "USAGE:" "$OUTPUT_FILE"
+
+      - name: Filesystem isolation validation
+        run: bash deploy/docker/container-validation.sh letterblack-sentinel:phase2-ci
+
+      - name: Regression guard (/app must stay read-only)
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp-ci/config .tmp-ci/data .tmp-ci/keys
+          if docker run --rm \
+            --read-only \
+            --tmpfs /tmp \
+            -v "$PWD/.tmp-ci/config:/app/config:ro" \
+            -v "$PWD/.tmp-ci/data:/app/data:rw" \
+            -v "$PWD/.tmp-ci/keys:/app/keys:ro" \
+            --entrypoint sh \
+            letterblack-sentinel:phase2-ci \
+            -lc 'touch /app/forbidden.txt'; then
+            echo "FAIL: /app became writable"
+            exit 1
+          fi
+          echo "✔ /app write is correctly blocked"

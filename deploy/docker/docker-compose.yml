@@ -1,0 +1,14 @@
+services:
+  sentinel:
+    build:
+      context: ../../letterblack-sentinel
+      dockerfile: Dockerfile
+    image: letterblack-sentinel:local
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./config:/app/config:rw
+      - ./data:/app/data:rw
+      - ./keys:/app/keys:ro
+    command: ["health", "--json", "true"]
