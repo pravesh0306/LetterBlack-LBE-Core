@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Audio Sentinel Pro</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div id="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">🎵 Audio Sentinel</h1>
+                <span class="app-version">v1.0</span>
+            </div>
+            <div class="header-right">
+                <button id="btn-settings" class="btn-icon" title="Settings">⚙️</button>
+                <button id="btn-help" class="btn-icon" title="Help">❓</button>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="generate">Generate</button>
+            <button class="tab-btn" data-tab="library">Library</button>
+            <button class="tab-btn" data-tab="vision">Vision</button>
+            <button class="tab-btn" data-tab="settings">Settings</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- GENERATE TAB -->
+            <section id="tab-generate" class="tab-pane active">
+                <div class="section-title">Audio Generation</div>
+                
+                <!-- Quick Generate -->
+                <div class="card">
+                    <h3>Quick Generate</h3>
+                    
+                    <div class="form-group">
+                        <label>Text to Speech</label>
+                        <textarea id="tts-text" placeholder="Enter text to generate speech..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Voice</label>
+                            <select id="voice-select">
+                                <option value="">-- Auto Detect --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Model</label>
+                            <select id="model-select">
+                                <option value="">-- Auto Detect --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Stability: <span id="stability-val">0.5</span></label>
+                            <input type="range" id="stability-slider" min="0" max="1" step="0.1" value="0.5" />
+                        </div>
+                        <div class="form-group">
+                            <label>Similarity: <span id="similarity-val">0.75</span></label>
+                            <input type="range" id="similarity-slider" min="0" max="1" step="0.1" value="0.75" />
+                        </div>
+                    </div>
+
+                    <button id="btn-generate-tts" class="btn btn-primary">🎤 Generate Speech</button>
+                </div>
+
+                <!-- Sound Effect Generation -->
+                <div class="card">
+                    <h3>Sound Effects</h3>
+                    
+                    <div class="form-group">
+                        <label>Effect Description</label>
+                        <textarea id="sfx-text" placeholder="Describe the sound effect..." rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duration (seconds)</label>
+                        <input type="number" id="sfx-duration" min="0.5" max="30" step="0.5" value="5" />
+                    </div>
+
+                    <button id="btn-generate-sfx" class="btn btn-primary">🔊 Generate Sound</button>
+                </div>
+
+                <!-- Timeline Vision Generation -->
+                <div class="card highlight">
+                    <h3>Timeline Vision Analysis</h3>
+                    <p class="card-description">Analyze your composition visually and generate matching audio</p>
+                    
+                    <div class="form-group">
+                        <label>Composition</label>
+                        <select id="comp-select">
+                            <option value="">-- Select Composition --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frame Interval</label>
+                        <input type="number" id="frame-interval" min="5" max="50" step="5" value="15" />
+                    </div>
+
+                    <button id="btn-analyze-timeline" class="btn btn-primary btn-large">
+                        🎬 Analyze & Generate
+                    </button>
+
+                    <div id="vision-progress" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="progress-text">Extracting frames...</span>
+                    </div>
+                </div>
+
+                <!-- Waveform Display -->
+                <div class="card">
+                    <h3>Waveform Preview</h3>
+                    <canvas id="waveform-canvas" class="waveform-canvas"></canvas>
+                    <div class="waveform-info">
+                        <span id="waveform-duration">0:00</span>
+                        <span id="waveform-format">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LIBRARY TAB -->
+            <section id="tab-library" class="tab-pane">
+                <div class="section-title">Audio Library</div>
+
+                <div class="card">
+                    <div class="library-toolbar">
+                        <input type="text" id="library-search" placeholder="Search audio..." class="search-input" />
+                        <button id="btn-library-refresh" class="btn-icon" title="Refresh">🔄</button>
+                        <button id="btn-library-clear" class="btn-icon" title="Clear">🗑️</button>
+                    </div>
+
+                    <div id="library-grid" class="library-grid">
+                        <!-- Library items populated by JavaScript -->
+                    </div>
+
+                    <div id="library-empty" class="empty-state">
+                        <p>📚 No audio generated yet</p>
+                        <small>Generate audio on the "Generate" tab to build your library</small>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Library Info</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Total Audio</span>
+                            <span id="library-count" class="info-value">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Storage Used</span>
+                            <span id="library-size" class="info-value">0 KB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Duration</span>
+                            <span id="library-duration" class="info-value">0:00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISION TAB -->
+            <section id="tab-vision" class="tab-pane">
+                <div class="section-title">Vision Analysis</div>
+
+                <div class="card">
+                    <h3>Latest Analysis</h3>
+                    <div id="vision-results" class="vision-results">
+                        <p class="empty-state">No analysis yet. Run "Analyze & Generate" on the Generate tab.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Detected Elements</h3>
+                    <div id="detected-elements" class="elements-list">
+                        <!-- Populated by vision analysis -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Audio Profile</h3>
+                    <div id="audio-profile" class="profile-display">
+                        <div class="profile-item">
+                            <span class="profile-label">Mood:</span>
+                            <span id="profile-mood" class="profile-value">-</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="profile-label">Pacing:</span>
+                            <span id="profile-pacing" class="profile-value">-</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="profile-label">Intensity:</span>
+                            <span id="profile-intensity" class="profile-value">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS TAB -->
+            <section id="tab-settings" class="tab-pane">
+                <div class="section-title">Settings</div>
+
+                <div class="card">
+                    <h3>API Configuration</h3>
+                    
+                    <div class="form-group">
+                        <label>ElevenLabs API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="api-key-input" placeholder="Paste your API key..." />
+                            <button id="btn-toggle-api-key" class="btn-icon" title="Show/Hide">👁️</button>
+                        </div>
+                        <small>Get your key from <a href="https://elevenlabs.io/app/api-keys" target="_blank">elevenlabs.io</a></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Google Vision API Key (Optional)</label>
+                        <textarea id="google-api-key" placeholder="For enhanced visual recognition..." rows="2"></textarea>
+                        <small>Leave blank to use local analysis</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sentinel Controller Endpoint</label>
+                        <input type="text" id="sentinel-endpoint" placeholder="http://localhost:8000" />
+                        <small>For governance actions (optional for local mode)</small>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Audio Preferences</h3>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="auto-timeline-insert" checked />
+                            Auto-insert to timeline
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="auto-save-library" checked />
+                            Auto-save to library
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="real-time-waveform" checked />
+                            Real-time waveform
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="vision-analysis-enabled" checked />
+                            Enable vision analysis
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>About</h3>
+                    <div class="about-info">
+                        <p><strong>Audio Sentinel Pro v1.0</strong></p>
+                        <p>Professional audio generation for Adobe After Effects powered by ElevenLabs AI and vision analysis</p>
+                        <p><small>Built with Sentinel governance framework</small></p>
+                    </div>
+                </div>
+
+                <button id="btn-save-settings" class="btn btn-primary">💾 Save Settings</button>
+            </section>
+        </div>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div id="status-message" class="status-text">Ready</div>
+            <div class="status-indicators">
+                <span id="status-api" class="status-indicator" title="API Connection"></span>
+                <span id="status-aef" class="status-indicator" title="After Effects"></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/lib/CSInterface.js"></script>
+    <script src="js/lib/tweetnacl.umd.min.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/sentinel-bridge.js"></script>
+    <script src="js/timeline-manager.js"></script>
+    <script src="js/audio-library.js"></script>
+    <script src="js/vision-analyzer.js"></script>
+    <script src="js/waveform-renderer.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

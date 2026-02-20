@@ -1,15 +1,27 @@
 services:
-  sentinel:
+  sentinel-api:
     build:
       context: .
       dockerfile: deploy/docker/Dockerfile
     image: letterblack-sentinel:local
+    container_name: letterblack-sentinel-api
+    restart: unless-stopped
     read_only: true
     tmpfs:
       - /tmp
-    entrypoint: ["sh", "-lc"]
+    entrypoint: ["node", "bin/lbe-server.js"]
+    environment:
+      SENTINEL_API_HOST: "0.0.0.0"
+      SENTINEL_API_PORT: "8080"
+      SENTINEL_API_TOKEN: "${SENTINEL_API_TOKEN:-change-me-token}"
+      SENTINEL_POLICY_PATH: "/app/config/policy.default.json"
+      SENTINEL_POLICY_SIG: "/app/config/policy.sig.json"
+      SENTINEL_POLICY_STATE: "/app/data/policy.state.json"
+      SENTINEL_KEYS_STORE: "/app/config/keys.json"
+      SENTINEL_INTEGRITY_STRICT: "false"
+    ports:
+      - "8080:8080"
     volumes:
       - ./config:/app/config:ro
       - ./data:/app/data:rw
       - ./keys:/app/keys:ro
-    command: ["while true; do sleep 3600; done"]

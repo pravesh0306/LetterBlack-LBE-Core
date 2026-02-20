@@ -1,8 +1,17 @@
 {
   "version": 1,
-  "createdAt": "2026-02-18T21:46:00.000Z",
+  "createdAt": "2026-02-18T21:46:00Z",
   "default": "DENY",
   "requesters": {
+    "agent:observer": {
+      "allowAdapters": [
+        "observer"
+      ],
+      "allowCommands": [
+        "OBSERVE_IRREGULARITY"
+      ],
+      "description": "Observer-only mode: AI reports issues without mutations"
+    },
     "agent:gpt": {
       "allowAdapters": [
         "noop",
@@ -38,6 +47,57 @@
           "sudo"
         ]
       }
+    },
+    "agent:ae-timeline-vision-v1": {
+      "allowAdapters": [
+        "cepTimelineVision"
+      ],
+      "allowCommands": [
+        "EXTRACT_TIMELINE_FRAMES",
+        "ANALYZE_VISION",
+        "DETECT_OPTIMAL_MODEL",
+        "GENERATE_AUDIO_FROM_VISION"
+      ],
+      "description": "After Effects timeline vision analysis and audio generation pipeline",
+      "capabilities": {
+        "cep": true,
+        "filesystem": true,
+        "network": true
+      },
+      "filesystem": {
+        "roots": [
+          "D:\\Developement\\Core_Control\\letterblack-sentinel\\data",
+          "D:\\Developement\\ElevenLabs_Audio_Toolkit_Professional_Edition"
+        ],
+        "denyPatterns": [
+          "**/.git/**",
+          "**/secrets/**",
+          "**/*.key"
+        ]
+      },
+      "exec": {
+        "allowCmds": []
+      }
+    },
+    "cep:ae-audio-sentinel-v1": {
+      "allowAdapters": [
+        "cepTimelineVision"
+      ],
+      "allowCommands": [
+        "EXTRACT_TIMELINE_FRAMES",
+        "ANALYZE_VISION",
+        "DETECT_OPTIMAL_MODEL",
+        "GENERATE_AUDIO_FROM_VISION"
+      ],
+      "description": "Audio Sentinel Pro CEP Extension"
+    }
+  },
+  "security": {
+    "maxClockSkewSec": 600,
+    "maxPolicyCreatedAtSkewSec": 31536000,
+    "defaultRateLimit": {
+      "windowSec": 60,
+      "maxRequests": 30
     }
   }
 }

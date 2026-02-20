@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="13.0">
+    <ExtensionList>
+        <Extension Id="com.letterblack.audiosentinel">
+            <Name>Audio Sentinel Pro</Name>
+            <Version>1.0.0</Version>
+            <Description>Professional audio generation and timeline editing for After Effects powered by AI vision analysis and Sentinel governance</Description>
+            
+            <UI>
+                <Type>Dockable</Type>
+                <Geometry>
+                    <Size>
+                        <Width>600</Width>
+                        <Height>900</Height>
+                    </Size>
+                </Geometry>
+            </UI>
+
+            <MainPath>./html/index.html</MainPath>
+            
+            <RequiredRuntimeList>
+                <RequiredRuntime Name="CSXS" Version="13.0" />
+            </RequiredRuntimeList>
+        </Extension>
+    </ExtensionList>
+    
+    <ExecutionEnvironment>
+        <HostList>
+            <Host Name="AEFT" Version="[24.0,99.0]" />
+        </HostList>
+        <LocalizationList>
+            <Localization Locale="en_US" />
+        </LocalizationList>
+    </ExecutionEnvironment>
+</ExtensionManifest>

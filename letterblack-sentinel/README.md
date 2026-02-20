@@ -6,6 +6,21 @@ A cryptographically-secured governance engine that enforces the principle: **Age
 
 ---
 
+## Start Here
+
+**First time?** → [START_HERE.md](START_HERE.md) — Your 14-day checkpoint (5 min read)
+
+**Want zero-risk testing?** → [OBSERVER_MODE.md](OBSERVER_MODE.md) — AI reports issues, never executes (perfect for week 1)
+
+Then pick one:
+
+- **🚀 I want to USE it** → [USAGE_EXAMPLE.md](USAGE_EXAMPLE.md) — Real 7-day test with AI-generated JSX
+- **📋 I want to TEST it** → [TESTING_GUIDE.md](TESTING_GUIDE.md) — Step-by-step test procedures
+- **✅ I want to know what's done** → [MVP_READINESS.md](MVP_READINESS.md) — Implemented vs. Parked status
+- **🏗️ I want architecture** → [../LBCP_Plan/01_ARCHITECTURE.md](../LBCP_Plan/01_ARCHITECTURE.md) — Layer contracts & design
+
+---
+
 ## Overview
 
 LetterBlack Sentinel is a command-line governance tool for safely executing AI-generated proposals. It implements a 4-layer architecture that ensures every command is:

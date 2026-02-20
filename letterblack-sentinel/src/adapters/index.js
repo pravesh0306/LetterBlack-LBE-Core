@@ -3,10 +3,14 @@
 
 import { noopAdapter } from './noopAdapter.js';
 import { shellAdapter } from './shellAdapter.js';
+import { observerAdapter } from './observerAdapter.js';
+import cepTimelineVisionAdapter from './cepTimelineVisionAdapter.js';
 
 const ADAPTERS = {
     noop: noopAdapter,
-    shell: shellAdapter
+    shell: shellAdapter,
+    observer: observerAdapter,
+    cepTimelineVision: cepTimelineVisionAdapter
 };
 
 export function getAdapter(name) {

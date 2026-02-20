@@ -8,14 +8,28 @@
       "rotationBatch": "2026Q1",
       "notBefore": "2026-02-18T01:17:09.519Z",
       "expiresAt": "2027-02-18T01:17:09.519Z",
-      "deprecated": false
+      "deprecated": false,
+      "validFrom": "2026-02-18T01:17:09.519Z",
+      "validUntil": "2027-02-18T01:17:09.519Z"
+    },
+    "agent:observer-v1-2026Q1": {
+      "requesterId": "agent:observer",
+      "publicKey": "F1pjBW0TkTcQBQM4U5JX4Ccd1XHvZhHOSoApD0Vkqv0=",
+      "rotationBatch": "2026Q1",
+      "notBefore": "2026-02-18T01:17:09.519Z",
+      "expiresAt": "2027-02-18T01:17:09.519Z",
+      "deprecated": false,
+      "validFrom": "2026-02-18T01:17:09.519Z",
+      "validUntil": "2027-02-18T01:17:09.519Z"
     },
     "policy-signer-v1-2026Q1": {
       "publicKey": "F1pjBW0TkTcQBQM4U5JX4Ccd1XHvZhHOSoApD0Vkqv0=",
       "rotationBatch": "2026Q1",
       "notBefore": "2026-02-18T05:24:14.057Z",
       "expiresAt": "2027-02-18T05:24:14.057Z",
-      "deprecated": false
+      "deprecated": false,
+      "validFrom": "2026-02-18T05:24:14.057Z",
+      "validUntil": "2027-02-18T05:24:14.057Z"
     }
   }
 }

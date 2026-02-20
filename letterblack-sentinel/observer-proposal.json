@@ -1,0 +1,30 @@
+{
+  "id": "OBSERVE_IRREGULARITY",
+  "commandId": "56c3915f-77e6-41d3-952f-d6b7b5483843",
+  "requesterId": "agent:observer",
+  "sessionId": "session:observer-test",
+  "timestamp": 1771617609,
+  "nonce": "68da3f5bb41706d86c866d6d7b23f15a739b4a3753fec71a4afd4dd0a2d31af8",
+  "requires": [
+    "observe"
+  ],
+  "risk": "LOW",
+  "payload": {
+    "adapter": "observer",
+    "source": "CEP",
+    "context": "AfterEffects",
+    "issueType": "NO_LAYER_SELECTED",
+    "description": "Attempted property expression application with no active layer",
+    "severity": "low",
+    "metadata": {
+      "compName": "MainComp",
+      "attemptedAction": "applyPropertyExpression",
+      "timestamp": 1771617609
+    }
+  },
+  "signature": {
+    "alg": "ed25519",
+    "keyId": "agent:observer-v1-2026Q1",
+    "sig": "BPWd5gl1NDXO3jkwVzFsSoK/5J79ca6vrqbpzmiOlrYKn934loJZK5HKOb9pQvY0GR/swSuWgI7CzaB/X8qWBg=="
+  }
+}
