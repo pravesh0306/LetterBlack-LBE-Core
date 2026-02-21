@@ -55,3 +55,27 @@ export function atomicAppendFileSync(filePath, data, options = {}) {
     // Write atomically
     atomicWriteFileSync(filePath, combinedData, options);
 }
+
+/**
+ * Atomically write JSON data
+ */
+export async function atomicWriteJSON(filePath, data) {
+    const jsonStr = JSON.stringify(data, null, 2);
+    atomicWriteFileSync(filePath, jsonStr, { encoding: 'utf8' });
+}
+
+/**
+ * Safely read JSON file (returns null on error)
+ */
+export function readJSONSafe(filePath) {
+    try {
+        if (!fs.existsSync(filePath)) {
+            return null;
+        }
+        const content = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(content);
+    } catch (e) {
+        console.error(`[atomicWrite] Failed to read JSON from ${filePath}:`, e.message);
+        return null;
+    }
+}

@@ -1,6 +1,6 @@
 {
     "name": "letterblack-sentinel",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Enterprise AI-safe execution pipeline: Contract-driven governance engine",
     "type": "module",
     "main": "src/core/index.js",
